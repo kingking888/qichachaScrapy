@@ -70,6 +70,8 @@ class QccurlSpider(scrapy.Spider):
             trs = response.xpath('//section[@id="searchlist"]/table/tr')
         for tr in trs:
             u = tr.xpath('td[3]/a/@href').extract_first()
+            if not u:
+                u = tr.xpath('td[2]/a/@href').extract_first()
             if u:
                 url = self.base_url + u
                 # count = self.redis.lpush(self.redis_key,url)
